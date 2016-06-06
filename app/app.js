@@ -19,9 +19,22 @@ import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import useScroll from 'react-router-scroll';
 import configureStore from './store';
+import FontFaceObserver from 'fontfaceobserver';
 
 // Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
 import 'sanitize.css/lib/sanitize.css';
+
+// Observe loading of Open Sans (to remove open sans, remove the <link> tag in
+// the index.html file and this observer)
+import styles from 'containers/App/styles.css';
+const openSansObserver = new FontFaceObserver('Raleway', {});
+
+// When Open Sans is loaded, add a font-family using Open Sans to the body
+openSansObserver.check().then(() => {
+  document.body.classList.add(styles.fontLoaded);
+}, () => {
+  document.body.classList.remove(styles.fontLoaded);
+});
 
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router

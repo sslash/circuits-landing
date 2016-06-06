@@ -1,0 +1,19 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+body.fontLoaded {
+    font-family: 'Raleway', sans-serif;
+}
+
+:global(#app) {
+    background-color: #FAFAFA;
+    min-height: 100%;
+    min-width: 100%;
+}

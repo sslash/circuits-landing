@@ -1,3 +1,4 @@
+// TODO: try a gradient like this: https://dribbble.com/shots/2748308-Daily-UI-Challenge-003-Landing-Page/attachments/558446
 
 import React, {PropTypes} from 'react';
 /*
@@ -34,9 +35,6 @@ export default class BackgroundLoader extends React.Component {
         // Making this a global so it can be later
         // nullified when the component unmounts
         this.image = new Image();
-        console.log('-------------NIHAO----------------');
-        console.log(`src`, this.props.src);
-        console.log('----------------------------------');
 
         this.image.src = this.props.src;
         this.image.onload = this.handleLoad;
@@ -52,9 +50,6 @@ export default class BackgroundLoader extends React.Component {
     }
 
     handleLoad(e) {
-        console.log('-------------NIHAO----------------');
-        console.log(`load!!`);
-        console.log('----------------------------------');
         this.setState({
             loaded: true,
         });
@@ -70,10 +65,9 @@ export default class BackgroundLoader extends React.Component {
 
     render() {
         const {src, placeholder, children, ...props} = this.props;
+        // TODO: include a photo here if you want fade in bg image
         const source = !this.state.loaded || this.state.error ? placeholder : src;
-        console.log('-------------NIHAO----------------');
-        console.log(`source nOWWW`, source);
-        console.log('----------------------------------');
+        // const source = '';
 
         return (
             <div style={{backgroundImage: `url(${source})`}} {...props}>

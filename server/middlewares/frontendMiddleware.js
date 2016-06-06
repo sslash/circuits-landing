@@ -4,6 +4,7 @@ const compression = require('compression');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpack = require('webpack');
+const bodyParser = require('body-parser');
 
 // Dev middleware
 const addDevMiddlewares = (app, options) => {
@@ -15,7 +16,11 @@ const addDevMiddlewares = (app, options) => {
   });
 
   app.use(middleware);
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
   app.use(webpackHotMiddleware(compiler));
+
+  app.use('/api', require('../api')(app));
 
   // Since webpackDevMiddleware uses memory-fs internally to store build
   // artifacts, we use it instead
