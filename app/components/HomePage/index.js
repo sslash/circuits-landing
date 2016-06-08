@@ -21,10 +21,26 @@ import '../../containers/App/styles.css';
 const source ='http://s33.postimg.org/6yyfpsl7z/image.jpg'; // TODO: put this image somewhere
 const baseUrl = '/api/signup';
 
+var modalStyle = {};
+
 
 
 /* eslint-disable react/prefer-stateless-function */
 export default class HomePage extends React.Component {
+
+    state = { windowWidth: window.innerWidth };
+
+    handleResize = (e) => {
+        this.setState({ windowWidth: window.innerWidth });
+    }
+
+    componentDidMount () {
+        window.addEventListener('resize', this.handleResize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize);
+    }
 
     handleClick = () => {
         this.refs.modal.show();
@@ -43,10 +59,17 @@ export default class HomePage extends React.Component {
     }
 
     renderModal = () => {
+        if (this.state.windowWidth < 992) {
+            modalStyle.width = '85%';
+        } else {
+            delete modalStyle.width;
+        }
+
         return (
             <Modal
                 ref="modal"
                 keyboard
+                modalStyle={modalStyle}
                 >
                 <div className={Stl.modalInner}>
                     <button className={Stl.modalExit} onClick={this.handleClose}>
@@ -68,9 +91,9 @@ export default class HomePage extends React.Component {
         return (
             <BackgroundImage src={source} placeholder={localImage} className={Stl.bg}>
                 {this.renderModal()}
-                <div className={Stl.overlay}/>
+                <div className={Stl.overlay} />
                 <div className={Stl.content}>
-                    <div className={cn(Stl.footer, Stl.flex,Stl['justify-space-between'],Stl.column, Stl.fullH)}>
+                    <div className={cn(Stl.footer, Stl.flex, Stl.column, Stl.fullHR)}>
                         <div className={cn(Stl.flex, Stl['justify-space-between'], Stl['align-items-center'])}>
                             <img src={require('./imgs/icon@3x.png')} style={{width:50, height: 50, margin: 20}} />
                             <div style={{marginRight: 20}}>
@@ -78,15 +101,24 @@ export default class HomePage extends React.Component {
                                 <a href="/"><img src={require('./imgs/facebook@3x.png')} style={{width:25, height: 25, margin: 10}} /></a>
                             </div>
                         </div>
-                        <div className={Stl['justify-center', Stl['align-items-center']]} style={{marginBottom: '3%'}}>
-                            <h1 className={Stl.header}>Sap dap yearnal megstar which came through foo.</h1>
-                            <div className={Stl.subHeader}>
-                                <strong className={Stl.strong}>CIRCUITS </strong>
-                                <span>is the super app dapp outcome of all timers which increases lol yoloers stap dapersn.</span>
+                        <div 
+                            className={cn(Stl.flex, Stl.rRow, Stl['justify-center'], Stl['align-items-center'], Stl.fullHR)} 
+                            style={{marginBottom: '5%', paddingLeft: 50, paddingRight:50}}>
+                            <div>
+                                <div className={Stl.headerWrap}>
+                                    <h1 className={Stl.header}>Sap dap yearnal megstar which came through foo.</h1>
+                                    <div className={Stl.subHeader}>
+                                        <strong className={Stl.strong}>CIRCUITS </strong>
+                                        <span>is the super app dapp outcome of all timers which increases lol yoloers stap dapersn.</span>
+                                    </div>
+                                    <div style={{margin: 'auto', textAlign: 'center'}}>
+                                        <button className={Stl.btn} onClick={this.handleClick}>Sign up for Circuits news</button>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div style={{margin: 'auto', textAlign: 'center'}}>
-                            <button className={Stl.btn} onClick={this.handleClick}>Sign up for Circuits news</button>
+                            <div className={Stl.phone}>
+                                <a href="/"><img src={require('./imgs/iphone.png')} className={Stl.phoneImg} /></a>
+                                <a href="/"><img src={require('./imgs/appstore.png')} className={cn(Stl.phoneImg, Stl.appStoreImg)} /></a>
                             </div>
                         </div>
                     </div>

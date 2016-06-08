@@ -1,5 +1,3 @@
-// TODO: try a gradient like this: https://dribbble.com/shots/2748308-Daily-UI-Challenge-003-Landing-Page/attachments/558446
-
 import React, {PropTypes} from 'react';
 /*
 This component displays a placeholder image that is hosted locally

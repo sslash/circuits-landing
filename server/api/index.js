@@ -16,7 +16,7 @@ function signup (req, res, next) {
     })
     .catch(err => {
         res.status(500).send({message: 'Something went wrong'});
-    }
+    });
 }
 
 module.exports = function (app) {
